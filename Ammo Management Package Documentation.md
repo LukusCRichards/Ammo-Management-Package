@@ -5,3 +5,6 @@ This package will make your weapons fire when there's ammo, stop when there is n
 
 ### Gun Script
 
+## How To Add Effects To The Gun (Not Included in Package) 
+
+## Things To Note
