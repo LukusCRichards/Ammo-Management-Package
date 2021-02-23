@@ -3,3 +3,5 @@ This package will make your weapons fire when there's ammo, stop when there is n
 
 ## Writing the script
 
+### Gun Script
+
