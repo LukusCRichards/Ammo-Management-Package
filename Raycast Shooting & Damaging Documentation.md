@@ -99,17 +99,71 @@ These are additional things you can add to the script to make it more complex.
 
 
 
-### Reducing Max Ammo Per Reload
+### Reloading gun
 
-#### Simple vVersion (Included in Package)
+#### Simple Version (Included in Package)
 
 This version is included in the package and gives a simple way of reloading the gun. Note that this version is only meant for guns with **Unlimited ammo** as this does not reduce the maximum ammo capacity of the guns.
 
-To start off create three vriables: a public int variable called maxAmmo and give it a value of 10, a private int called currentAmmo and a public float variable called reloadTime with a value of 1f.  
+To start off create three vriables: a public int variable called **maxAmmo** and give it a value of your choosing, a private int called **currentAmmo** and a public float variable called **reloadTime** with a value of 1f. Next thing to do is to write the following in the **Start** function:
+
+    currentAmmo = maxAmmo;
+
+If you deleted the Start function go ahead and write it back in.
+
+Next, go to the **Shoot** method and write the following:
+
+    currentAmmo--;
+
+This will subtract the currentAmmo value by one and this can be written anywhere i the Shoot method, but outside of an if statement is recomended.
+
+By now, everytime you shoot, the currentAmmo value should shrink by one every time you shoot the gun. If it didn't, you might have put it in an if stetement and you made it so the bullets only shrink when another condition is met.
+
+To make sure that whenever the gun runs out of ammo and reloads when it does, write the following in the **Update** method:
+
+    if(currantAmmo <=0)
+    {
+        Reload();
+        return;
+    }
+
+Now create a **private** function called reload and write the following:
+
+    Reload()
+    {
+        Debug.Log("Reloading"); //So whenever the gun reloads, you know get notified on in the console tab that it worked.
+        currentAmmo = maxAmmo;
+    }
+
+By now, everytime you fire the gun and it runs out of ammo, it should reload. Though there is a slight problem with the reload script: it reloads instantly and that's not going to be in synch for the reload animations.
+
+To add a delay to this, make sure that you did **not** remove **using System.Collections** and in the Reload function, change the void to an **IEnumerator** and write **yield return new WaitForSeconds(reloadTime);** on top of **currentAmmo = maxAmmo;**. By now, reload method should look like this:
+
+    Reload()
+    {
+        yield return new WaitForSeconds(reloadTime);
+        currentAmmo = maxAmmo;
+    }
+
+Now, go back to the Update method and change the referenced Shoot method to the folowing:
+
+    if(currantAmmo <=0)
+    {
+        StartCoroutine(Reload());
+        return;
+    }
+
+Now whenever the ammo reaches 0, the gun will reload and there will be a few seconds (depending on reloadTime value) before the gun can fire again. After the delay, you can continue firing. However, every frame when you run out of ammo, the script will start the reload Coroutine and t should only be doing it once.
+
+To fix this, create a privte bool and name it isReloading. Then set it to false.
 
 #### Complex Version (Not Included)
 
+
+
 ### Rate of Fire
+
+
 
 ### Adding Effects To The Gun (Not Included in Package)
 
