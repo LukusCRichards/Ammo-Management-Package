@@ -215,7 +215,25 @@ If you've done this correctly, you should now see the animations changing whenev
 
 Now there is just one last problem to deal with: as soon as the animation finishes, the gun can start shooting, even when the animation hasn't finished yet. You can fix this very quickly.
 
-In the Reload method
+In the Reload method, in the yield return new WaitForSeconds, write - 25f in front of the reloadTime to add a slightly longer delay. Write another one under the animator that is set to false and just give it .25. By now the Reload method should look like this:
+
+    IEnumerator Reload()
+    {
+        isReloading = true
+        
+        animator.SetBool("Reloading", Truw);
+        
+        yield return new WaitForSeconds(reloadTime - .25f);
+        
+        animator.SetBool("Reloading", fales);
+        
+        yield return new WaitForSeconds(.25f);
+        
+        currentAmmo = maxAmmo;
+        isReloading = false;
+    }
+
+Now, the gun should only fire when the gun's reload animation is complete.
 
 ### Rate of Fire
 
