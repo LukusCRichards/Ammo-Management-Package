@@ -1,4 +1,4 @@
-# Raycast Shooting & Damaging Package
+# Raycast Gun & Damage Package
 
 This package will make your weapons fire when there's ammo, stop when there is none left and reload when the weapon is empty.
 
@@ -95,15 +95,7 @@ In other words, the Gun script is calling the NPCHealthSystem script and tells i
 
 These are additional things you can add to the script to make it more complex.
 
-### Reload Animations (Included in Package)
-
-
-
-### Reloading gun
-
-#### Simple Version (Included in Package)
-
-This version is included in the package and gives a simple way of reloading the gun. Note that this version is only meant for guns with **Unlimited ammo** as this does not reduce the maximum ammo capacity of the guns.
+### Reloading Gun
 
 To start off create three vriables: a public int variable called **maxAmmo** and give it a value of your choosing, a private int called **currentAmmo** and a public float variable called **reloadTime** with a value of 1f. Next thing to do is to write the following in the **Start** function:
 
@@ -179,9 +171,51 @@ There is one more major issue with this script: whenever the gun is reloading an
 
 To fix this 
 
-#### Complex Version (Not Included)
+### Reload Animations (Included in Package)
 
+If you want to add some animations tht will make the reloads look more satisfying, go to **Window > Animation** to open the Animation window, click on create and a new window should pop up. If you don't have a window for the animations, create one by right clicking and selecting **New > Folder**. When you have found the folder that you feel will help you find the animations, open that folder and save the animation with an appropriate name for the **Weapon Idle**. Now, go to the drop down which currently contains the name of the animation you made, click on it and select **Create New Clip** for the **Weapon Reload**.
 
+For a simple reload animation, simply click on the gameobject that you wis to be animated for the Weapon Reload animation, click on Record (Red circle) and simply change the rotation axis on the first frame of that game object to your prefered location. Then stop recording. For the Weapon Idle animation, just do the same but keep the first frame of the axis to 0 as this is where the gun will retutn to when the animation is done. **You do not need to move it back manualy**.
+
+Now to set the movements. First, click on the animation controller for that gun and click on the **Animator** tab (Animation and Animator are different). If you don't have the animator tab, go to **Window > Animator** and the tab should appear.
+
+In the Animator window, you should see the two animations you made with the same names you gave them. If you see Entry linked to the Weapon Reload animation, change it to the Weapon Idle animation by right-clickin on it and selecting **Set as Layer Default State**.
+
+To make the transitions, right-click on the Weapon Idle animation and select **Make Transition**, then left-click on the Weapon Reload animation. Do the same to the other way around as well so it goes back and forth. By now, there should be two lines going back and forth between the Weapon Idle and Weapon Reload animations.
+
+Right now, there are no conditions set to either of the transitions. So they'll start immediately. To make the animations start when reloading, click on parameters at the top left corner of the Animator window and click on the plus sign (+), add a new bool parameter and name it as **Reloading**. This will make sure that whenever the Reload method in the Gun script can call this parameter and make the animations play when does get called.
+
+Next, click on the line that goes from the Weapon Idle animtion to the Weapon Reload animation and click on the plus sign under conditions. Immediately after click in on the plus sign, you should see the name of the bool you made earlier with the values True and False in the drop down bar next to it. Set that bool to true. Do the exact same thing the other way around, but set the bool to false and turn off the **Has Exit Time** for both of them so you don't wait for the animation to play out.
+
+If you did this correctly, whenever you play the game in the project and change the bools from true and false, you should see the animations playing back and forth everytime you change them.
+
+Now to call these animations through the script.
+
+In the Gun script create a new public Animator variable and name it as animator (in lower case). Then go to the Reload method and write **animator.SetBool("Reloading", true);** at the top of WaitForSeconds and **animator.SetBool("Reloading", fales);** at the bottom of it. By then the Reload method should look like this:
+
+    IEnumerator Reload()
+    {
+        isReloading = true
+        
+        animator.SetBool("Reloading", Truw);
+        
+        yield return new WaitForSeconds(reloadTime);
+        
+        animator.SetBool("Reloading", fales);
+        
+        currentAmmo = maxAmmo;
+        isReloading = false;
+    }
+
+Make sure that the name of the Animator parameter you set in the Reload method's parentheses is the exact same name as the one in the Animator Window, because if you spelt it wrong, it will not work.
+
+Now go back to the gun containing the Gun script and you should see a new Animator slot. All you need to do now is to click and drag the animator component from that gun in to that slot. The animator component is set to the game object you animated automatically, so you don't need to worry about forgetting so add that component to the gun.
+
+If you've done this correctly, you should now see the animations changing whenever the gun is reloading and when it finishes. If you do not see this, you might have misspelt the name of the Parameter you set in the in the Animator.
+
+Now there is just one last problem to deal with: as soon as the animation finishes, the gun can start shooting, even when the animation hasn't finished yet. You can fix this very quickly.
+
+In the Reload method
 
 ### Rate of Fire
 
