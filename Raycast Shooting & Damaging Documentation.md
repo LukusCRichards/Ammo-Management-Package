@@ -95,13 +95,21 @@ In other words, the Gun script is calling the NPCHealthSystem script and tells i
 
 These are additional things you can add to the script to make it more complex.
 
-### Reload (with Animations)
+### Reload Animations (Included in Package)
 
 
 
-### Limiting Ammo
+### Reducing Max Ammo Per Reload
 
+#### Simple vVersion (Included in Package)
 
+This version is included in the package and gives a simple way of reloading the gun. Note that this version is only meant for guns with **Unlimited ammo** as this does not reduce the maximum ammo capacity of the guns.
+
+To start off create three vriables: a public int variable called maxAmmo and give it a value of 10, a private int called currentAmmo and a public float variable called reloadTime with a value of 1f.  
+
+#### Complex Version (Not Included)
+
+### Rate of Fire
 
 ### Adding Effects To The Gun (Not Included in Package)
 
