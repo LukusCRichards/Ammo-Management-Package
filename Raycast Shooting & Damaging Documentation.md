@@ -1,4 +1,4 @@
-# Shooting & Damaging Package
+# Raycast Shooting & Damaging Package
 
 This package will make your weapons fire when there's ammo, stop when there is none left and reload when the weapon is empty.
 
@@ -87,9 +87,9 @@ If you have done everything correctly, you should now see the gameobject with th
 
 ## How The Two Scripts Will Work Together
 
-If you hadn't noticed yet, you will know that in the TakeDamage function in the NPCHealthSystem script, there is a float variable type called damageAmount inside its parentheses and the damage variable also is also a float. Another thing you might not have noticed is that in the Gun script, the referenced TakeDamage function contains the damage float variable in the parentheses.
+The way these two scripts work together is mainly through the damage and health aspects. You see, in the NPCHealthSystem script you set up a health variable for the NPC and created a public void function that handles the damage the NPC recieves. In the Gun script, you set up the damage output for the player's gun and you referenced the public TakeDamage function.
 
-This means that whatever variable is in the parentheses in the TakeDamage function in the NPCHealthSystem script, the script that is referencing it (such as the Gun script) must contain that same variable type because if it does not, the code script get confused and come up with errors.
+In other words, the Gun script is calling the NPCHealthSystem script and tells it to reduce its health whenever the raycast from the Gun script hits an object with the NPCHealthSyste script.
 
 ## What Else Cen Be Added to The Script
 
