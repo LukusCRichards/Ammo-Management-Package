@@ -87,11 +87,13 @@ If you have done everything correctly, you should now see the gameobject with th
 
 ## How The Two Scripts Will Work Together
 
+If you hadn't noticed yet, you will know that in the TakeDamage function in the NPCHealthSystem script, there is a float variable type called damageAmount inside its parentheses and the damage variable also is also a float. Another thing you might not have noticed is that in the Gun script, the referenced TakeDamage function contains the damage float variable in the parentheses.
 
+This means that whatever variable is in the parentheses in the TakeDamage function in the NPCHealthSystem script, the script that is referencing it (such as the Gun script) must contain that same variable type because if it does not, the code script get confused and come up with errors.
 
 ## What Else Cen Be Added to The Script
 
-
+These are additional things you can add to the script to make it more complex.
 
 ### Reload (with Animations)
 
