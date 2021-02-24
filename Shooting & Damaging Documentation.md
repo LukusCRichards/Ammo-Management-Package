@@ -59,7 +59,31 @@ At this point, the debug script can go as it is no longer needed if you managed 
 
 ### NPCHealthSystem
 
+In this script, you don't need to write much as it is just to make sure the NPC dies and does not need to include any AI behaviour.
 
+When you open this script, delete the start and update functions, and create a public float variable, call it health and give it a number you feel is appropriate. Next, create a public void and call it **TakeDamage**. This void function needs to be public because if it is not, it can't be referenced in the Gun script and it **needs** that function to deal damage.
+
+In the TakeDamage function make sure the following is included:
+
+    public void TakeDamage(float damageAmount)
+    {
+        health -= damageAmount;
+        if(health <= 0f)
+        {
+            Die();
+        }
+    }
+
+You will notice that there is a private function called **Die**. This function will be used to destroy the gameobject when it's health reaches 0 or goes under it. So under the TakeDamage function, create the Die function and simply write the following:
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+
+This is all that is needed to make sure that when the NPC's health reaches 0, it disappears.
+
+If you have done everything correctly, you should now see the gameobject with the NPCHealthSystem script disappears when it's health reaches 0. If the gameobject is not disappearing and you are encountering an error in the Gun script, it is possible that you forgot to set the TakeDamage finction in the NPCHealthSystem sctipt to public.
 
 ## How The Two Scripts Will Work Together
 
