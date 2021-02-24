@@ -139,7 +139,7 @@ By now, everytime you fire the gun and it runs out of ammo, it should reload. Th
 
 To add a delay to this, make sure that you did **not** remove **using System.Collections** and in the Reload function, change the void to an **IEnumerator** and write **yield return new WaitForSeconds(reloadTime);** on top of **currentAmmo = maxAmmo;**. By now, reload method should look like this:
 
-    Reload()
+    IEnumerator Reload()
     {
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;
@@ -155,7 +155,29 @@ Now, go back to the Update method and change the referenced Shoot method to the 
 
 Now whenever the ammo reaches 0, the gun will reload and there will be a few seconds (depending on reloadTime value) before the gun can fire again. After the delay, you can continue firing. However, every frame when you run out of ammo, the script will start the reload Coroutine and t should only be doing it once.
 
-To fix this, create a privte bool and name it isReloading. Then set it to false.
+To fix this, create a privte bool, name it isReloading and set it to false. Then in the top of the Update function write the following:
+
+    if(isReloading)
+    {
+        return;
+    }
+
+Now, go to the top of the Reload function and write isReloading is true and do the same at the bottom, but set the bottom one to false. The Reload function should look like this after you're done:
+
+    IEnumerator Reload()
+    {
+        isReloading = true
+        
+        yield return new WaitForSeconds(reloadTime);
+        currentAmmo = maxAmmo;
+        isReloading = false;
+    }
+
+If you've written all this correctly, the gun should now reload when the gun is empty and not continue shooting whie the delay is still active.
+
+There is one more major issue with this script: whenever the gun is reloading and the player does something, such as switching weapons and goes back to the gun that was reloading, the isReloading bool is stuck on true which means that you can no longer shoot the gun. This is because the script thinks that it hasn't finished reloading, but in truth, it never does as it's stuck.
+
+To fix this 
 
 #### Complex Version (Not Included)
 
