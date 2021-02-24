@@ -169,7 +169,16 @@ If you've written all this correctly, the gun should now reload when the gun is 
 
 There is one more major issue with this script: whenever the gun is reloading and the player does something, such as switching weapons and goes back to the gun that was reloading, the isReloading bool is stuck on true which means that you can no longer shoot the gun. This is because the script thinks that it hasn't finished reloading, but in truth, it never does as it's stuck.
 
-To fix this 
+To fix this create another method under the start method and write **OnEnable** and in that ethod write **isReloading = false;** and if you have an animation assigned to the gun, write **animator.SetBool("Reloading", false);**. The method should look like this when you're done:
+
+    void OnEnable()
+    {
+        isReloading = false
+        
+        animator.SetBool("Reloading", false);
+    }
+
+So now, whenever the gameobject that contains the Gun script is set to enable, such as after switching weapons or picking up the same gun after dropping it, and the gun is reloading and you switch to another and then back to that gameoject, the gun should now start reloading as isReloading can no longer get stuck on true.
 
 ### Reload Animations (Included in Package)
 
