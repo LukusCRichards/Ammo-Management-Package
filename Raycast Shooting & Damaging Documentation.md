@@ -10,7 +10,7 @@ After opening the Unity project create 2 C# script files and name them appropria
 
 When you open the Gun script, make sure that you delete the **using System.Collections.Generic** but keep the **using Unity.Engine** and **using System.Collections** as the script  will need a Coroutine function and with out the **using System.Collections**, no Coroutines can be used.
 
-First create two public float variables called **damage** and **range** and give them any number you want. Next, create a public Camera variable and name it appropriatelyas this will be used to make the gun shoot though the camera, **not the gun**. Under the functions, create a private void function called **Shoot** (or any name you find more appropriate) and write the following in it:
+First create two public float variables called **damage** and **range** and give them any number you want. Next, create a public Camera variable and name it **fpsCam** (or another appropriate name) as this will be used to make the gun shoot though the camera, **not the gun**. Under the functions, create a private void function called **Shoot** (or any name you find more appropriate) and write the following in it:
     
     void Shoot()
     {
@@ -23,7 +23,7 @@ First create two public float variables called **damage** and **range** and give
         }
     }
             
-The debug method is going to be used temporarily so we know what gameobject we hit that's containing a collider.
+After writing this, go to te game object that your will be using for your gun and assign this script to it. Then click and drag the camera component that you are using for the shooting into the **fpsCam slot in the Gun script** component. The debug method is going to be used temporarily so we know what gameobject we hit that's containing a collider.
 
 To make the gun fire, go to the Update method and call the Shoot function by writing the following:
 
@@ -108,3 +108,5 @@ These are additional things you can add to the script to make it more complex.
 If you want to add some particle effects for the gun, such as muzzle flashing, create a public ParticleSystem variable and name it **muzzleFlash** (or another name you find more applicable).
 
 ## Things To Note
+
+These script does **not** contain any movement whatsoever as this is mainly for dealing damage to something and making sure that the gameobject with the NPCHealthSystem script dies when it's health reaches 0. If you've already made a scipt that handles movement and you just want to add something that deals damage, you can simply apply these scripts to the appropriate gameobjects and re-write the values that you find appropriate.
