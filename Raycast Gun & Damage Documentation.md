@@ -246,12 +246,18 @@ Now, the gun should only fire when the gun's reload animation is complete.
 
 ### Rate of Fire
 
+If you want the gun to fire a certain amount of times per second, whether it's automatic or semi-automatic, create a new public float vairable in the Gun script and call it **fireRate** and give it a value of 15f. Then create a private float variable called **nextTimeToFire** and give it a value of 0f.
 
+Now go to the if statement in the update method that is referencing the Shoot method and next to the GetButtonDown parentheses, write **&& Time.time >= nextTimtToFire.**. Inside that if statement write **nextTimeToFire = Time.time + 1f/fireRate;**. The code should look like this when you're done:
 
-### Adding Effects To The Gun (Not Included in Package)
+    if(Input.GetButtonDown("Fire1") && Time.time >= nextTimtToFire)
+    {
+        nextTimtToFire = Time.time + 1f/fireRate;
+        Shoot();
+    }
 
-If you want to add some particle effects for the gun, such as muzzle flashing, create a public ParticleSystem variable and name it **muzzleFlash** (or another name you find more applicable).
+By now, your gun should now fire and wait a certain amount of time before shooting again, but it should not be reloading. There is one thing you need to note about the fireRate value: the higher the value of the fireRate, the less time between shots.
 
 ## Things To Note
 
-These script does **not** contain any movement whatsoever as this is mainly for dealing damage to something and making sure that the gameobject with the NPCHealthSystem script dies when it's health reaches 0. If you've already made a scipt that handles movement and you just want to add something that deals damage, you can simply apply these scripts to the appropriate gameobjects and re-write the values that you find appropriate.
+These script does **not** contain any movement whatsoever, whether it's for a camera or a character, as this is mainly for dealing damage to something and making sure that the gameobject with the NPCHealthSystem script dies when it's health reaches 0. If you've already made a scipt that handles movement and you just want to add something that deals damage, you can simply apply these scripts to the appropriate gameobjects and re-write the values that you find appropriate.
