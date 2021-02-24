@@ -28,22 +28,22 @@ To make the gun fire, go to the Update method and call the Shoot function by wri
 
 If you did everything accordingly, you should now see that whenever you shoot and the raycast hits something, it should display the name of the gameobject in the console tab. If you don't see anything, it might be because that object does not contain a collider.
 
-To make it easier to tell where the gun is aiming at, create a UI Image and use any image you like. After creating the image, reduce the size of it to 10 width x 10 height as the gun will be firing via a small radius through the camera.
+To make it easier to tell where the gun is aiming at, create a UI Image for the crosshair and use any image you like, as well as any colour you like. After creating the image, reduce the size of it to 10 width x 10 height as the gun will be firing via a small radius through the camera. After resizing the crosshair, make sure that it is centered on the canvas. The image will always be centered by default, but if you want to be sure, click on the image and in the Rect Transform component, click on the box, hold Alt and select the centre.
 
-
-
-### AmmoManagement Script
-
-
-
-### How The Two Scripts Work Together
-
-
+By now, the crosshair image should now be centred on the canvas and wherever the crosshair is pointing at, the gun should be displaying the name of the object in the console and everything is working fine.
 
 ## What Else Cen Be Added to The Script
 
-### Adding Effects To The Gun (None Included in Package) 
+### Reload Animations
+
+
 
 ### Limiting Ammo (Optional)
+
+
+
+### Adding Effects To The Gun (Not Included in Package)
+
+If you want to add some particle effects for the gun, such as muzzle flashing, create a public ParticleSystem variable and name it **muzzleFlash** (or another name you find more applicable).
 
 ## Things To Note
